@@ -16,7 +16,7 @@ target_link_libraries(framework_rtos_drivers_dfu_image
 )
 target_link_options(framework_rtos_drivers_dfu_image
     INTERFACE
-        -lquadflash
+        -lquaddfu
 )
 
 ## Create an alias

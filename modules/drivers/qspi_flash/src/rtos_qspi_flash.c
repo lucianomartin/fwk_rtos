@@ -848,14 +848,14 @@ void rtos_qspi_flash_init(
     xassert(fl_connectToDevice(&ctx->qspi_ports, &ctx->qspi_spec, 1) == 0);
     /* Copy the spec back in case one was provided which has params populated by sfdp */
     xassert(fl_copySpec(&ctx->qspi_spec) == 0);
-    
+
     ctx->flash_size = fl_getFlashSize();
     
     /* Driver currently only supports 4096 sector size */
     xassert(rtos_qspi_flash_sector_size_get(ctx) == (1 << QSPI_ERASE_TYPE_SIZE_LOG2));
 
     /* Enable quad flash */
-    xassert(fl_quadEnable() == 0);
+    //xassert(fl_quadEnable() == 0);
 
     ctx->calibration_valid = 0;
     ctx->last_op = FLASH_OP_NONE;
@@ -902,7 +902,7 @@ void rtos_qspi_flash_fast_read_init(
     xassert(rtos_qspi_flash_sector_size_get(ctx) == (1 << QSPI_ERASE_TYPE_SIZE_LOG2));
 
     /* Enable quad flash before we disconnect */
-    xassert(fl_quadEnable() == 0);
+    //xassert(fl_quadEnable() == 0);
 
     fl_disconnect();
 

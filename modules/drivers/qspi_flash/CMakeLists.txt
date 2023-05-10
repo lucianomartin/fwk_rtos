@@ -18,11 +18,11 @@ if((${CMAKE_SYSTEM_NAME} STREQUAL XCORE_XS3A) OR (${CMAKE_SYSTEM_NAME} STREQUAL 
     )
     target_compile_options(framework_rtos_drivers_qspi_io
         INTERFACE
-            -lquadflash    
+            -lquaddfu
     )
     target_link_options(framework_rtos_drivers_qspi_io
         INTERFACE
-            -lquadflash    
+            -lquaddfu
     )
 
     ## Create an alias
