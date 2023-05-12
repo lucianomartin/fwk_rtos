@@ -855,7 +855,7 @@ void rtos_qspi_flash_init(
     xassert(rtos_qspi_flash_sector_size_get(ctx) == (1 << QSPI_ERASE_TYPE_SIZE_LOG2));
 
     /* Enable quad flash */
-    //xassert(fl_quadEnable() == 0);
+    xassert(fl_quadEnable() == 0);
 
     ctx->calibration_valid = 0;
     ctx->last_op = FLASH_OP_NONE;
@@ -902,7 +902,7 @@ void rtos_qspi_flash_fast_read_init(
     xassert(rtos_qspi_flash_sector_size_get(ctx) == (1 << QSPI_ERASE_TYPE_SIZE_LOG2));
 
     /* Enable quad flash before we disconnect */
-    //xassert(fl_quadEnable() == 0);
+    xassert(fl_quadEnable() == 0);
 
     fl_disconnect();
 

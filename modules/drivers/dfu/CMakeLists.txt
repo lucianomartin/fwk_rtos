@@ -13,11 +13,14 @@ target_include_directories(framework_rtos_drivers_dfu_image
 target_link_libraries(framework_rtos_drivers_dfu_image
     INTERFACE
         rtos::osal
+        #quaddfu::quaddfu
 )
-target_link_options(framework_rtos_drivers_dfu_image
-    INTERFACE
-        -lquaddfu
-)
+
+#target_link_options(framework_rtos_drivers_dfu_image
+#    INTERFACE
+#    -lquadflash
+#)
+
 
 ## Create an alias
 add_library(rtos::drivers::dfu_image ALIAS framework_rtos_drivers_dfu_image)

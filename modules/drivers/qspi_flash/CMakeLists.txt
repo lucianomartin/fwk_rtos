@@ -16,14 +16,14 @@ if((${CMAKE_SYSTEM_NAME} STREQUAL XCORE_XS3A) OR (${CMAKE_SYSTEM_NAME} STREQUAL 
             lib_qspi_fast_read
             rtos::osal
     )
-    target_compile_options(framework_rtos_drivers_qspi_io
-        INTERFACE
-            -lquaddfu
-    )
-    target_link_options(framework_rtos_drivers_qspi_io
-        INTERFACE
-            -lquaddfu
-    )
+    #target_compile_options(framework_rtos_drivers_qspi_io
+    #    INTERFACE
+    #        -lquaddfu
+    #)
+    #target_link_options(framework_rtos_drivers_qspi_io
+    #    INTERFACE
+    #        -lquaddfu
+    #)
 
     ## Create an alias
     add_library(rtos::drivers::qspi_io ALIAS framework_rtos_drivers_qspi_io)
