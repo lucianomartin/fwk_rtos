@@ -1,3 +1,5 @@
+// Copyright 2019-2023 XMOS LIMITED.
+// This Software is subject to the terms of the XMOS Public Licence: Version 1.
 /*
  * FreeRTOS Kernel V10.2.1
  * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
@@ -46,18 +48,18 @@
 /* User defined network parameters */
 #define IPconfig_IP_ADDR_OCTET_0    10
 #define IPconfig_IP_ADDR_OCTET_1    0
-#define IPconfig_IP_ADDR_OCTET_2    0
-#define IPconfig_IP_ADDR_OCTET_3    1
+#define IPconfig_IP_ADDR_OCTET_2    201
+#define IPconfig_IP_ADDR_OCTET_3    3
 
 #define IPconfig_NET_MASK_OCTET_0   255
-#define IPconfig_NET_MASK_OCTET_1     0
-#define IPconfig_NET_MASK_OCTET_2     0
-#define IPconfig_NET_MASK_OCTET_3     0
+#define IPconfig_NET_MASK_OCTET_1   255
+#define IPconfig_NET_MASK_OCTET_2   255
+#define IPconfig_NET_MASK_OCTET_3   0
 
 #define IPconfig_GATEWAY_OCTET_0     10
-#define IPconfig_GATEWAY_OCTET_1      0
-#define IPconfig_GATEWAY_OCTET_2      0
-#define IPconfig_GATEWAY_OCTET_3      1
+#define IPconfig_GATEWAY_OCTET_1     0
+#define IPconfig_GATEWAY_OCTET_2     201
+#define IPconfig_GATEWAY_OCTET_3     1
 
 #define IPconfig_DNS_SERVER_OCTET_0   8
 #define IPconfig_DNS_SERVER_OCTET_1   8
@@ -70,6 +72,7 @@
 #define IPconfig_MAC_ADDR_OCTET_3     0x00
 #define IPconfig_MAC_ADDR_OCTET_4     0x00
 #define IPconfig_MAC_ADDR_OCTET_5     0x00
+
 
 
 /* Prototype for the function used to print out.  In this case it prints to the

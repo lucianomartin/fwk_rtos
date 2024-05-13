@@ -1,4 +1,4 @@
-// Copyright 2021 XMOS LIMITED.
+// Copyright 2021-2023 XMOS LIMITED.
 // This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 #ifndef RTOS_USB_H_
@@ -249,6 +249,15 @@ static inline void rtos_usb_endpoint_stall_clear(rtos_usb_t *ctx,
     (void) ctx;
     XUD_ClearStallByAddr(endpoint_addr);
 }
+
+/**
+ * Calls the XUD function to enter the specified test mode.
+ *
+ * \param ctx           A pointer to the USB driver instance to use.
+ * \param test_mode     Desired test mode.
+ */
+void rtos_usb_enter_test_mode(rtos_usb_t *ctx,
+                            unsigned test_mode);
 
 /**
  * Starts the USB driver instance's low level USB I/O thread and enables its interrupts

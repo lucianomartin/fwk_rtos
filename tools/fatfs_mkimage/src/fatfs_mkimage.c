@@ -1,5 +1,5 @@
-// Copyright 2021 XMOS LIMITED. This Software is subject to the terms of the
-// XMOS Public License: Version 1
+// Copyright 2021-2023 XMOS LIMITED.
+// This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 #include <stdio.h>
 #include <ff.h>
@@ -7,7 +7,7 @@
 #include "fatfs_ops.h"
 #include "directory_add.h"
 
-#define VERSION "1.0-RC1"
+#define VERSION "1.0.0"
 
 #define IMAGE_SIZE_DEFAULT          1024*1024
 #define SECTOR_SIZE_DEFAULT         4096

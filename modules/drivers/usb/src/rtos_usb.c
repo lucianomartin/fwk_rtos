@@ -1,4 +1,4 @@
-// Copyright 2021 XMOS LIMITED.
+// Copyright 2021-2023 XMOS LIMITED.
 // This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 #define DEBUG_UNIT RTOS_USB
@@ -241,6 +241,12 @@ XUD_BusSpeed_t rtos_usb_endpoint_reset(rtos_usb_t *ctx,
     }
 
     return XUD_ResetEndpoint(one, two);
+}
+
+void rtos_usb_enter_test_mode(rtos_usb_t *ctx,
+                            unsigned test_mode)
+{
+    XUD_SetTestMode(ctx->ep[0][RTOS_USB_OUT_EP], test_mode);
 }
 
 static void ep_cfg(rtos_usb_t *ctx,

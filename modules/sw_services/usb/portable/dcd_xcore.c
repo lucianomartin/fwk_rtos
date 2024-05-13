@@ -1,4 +1,4 @@
-// Copyright 2021-2022 XMOS LIMITED.
+// Copyright 2021-2023 XMOS LIMITED.
 // This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 #define DEBUG_UNIT TUSB_DCD
@@ -42,7 +42,7 @@
 #define CFG_TUD_XCORE_IO_CORE_MASK (~(1 << 0))
 #endif
 
-TU_ATTR_WEAK bool tud_xcore_sof_cb(uint8_t rhport);
+TU_ATTR_WEAK bool tud_xcore_sof_cb(uint8_t rhport, uint32_t cur_time);
 TU_ATTR_WEAK bool tud_xcore_data_cb(uint32_t cur_time, uint32_t ep_num, uint32_t ep_dir, size_t xfer_len);
 
 #include "rtos_usb.h"
@@ -152,17 +152,22 @@ static void dcd_xcore_int_handler(rtos_usb_t *ctx,
         if (res == XUD_RES_OKAY) {
             tu_result = XFER_RESULT_SUCCESS;
 
-            if (ep_address == 0x00) {
+            /*
+             * Preparing for a setup packet only after receiving the ZLP to avoid
+             * having the EP0 out interrupt for setup packet recv come in before the
+             * ZLP xfer complete interrupt on EP0 IN. If that happens, it overwrites the _ctrl_xfer.request
+             * and the code falls over when the ZLP xfer complete on EP0 IN is eventually received.
+             */
+            if ((ep_address == 0x80) && (xfer_len == 0)) {
+                prepare_setup(true);
+                rtos_printf("xfer ZLP on 80 complete\n");
+            }
+            else if (ep_address == 0x00) {
                 if (xfer_len == 0) {
                     /*
                      * A ZLP has presumably been received on the output endpoint 0.
                      * Ensure lib_xud is ready for the next setup packet. Hopefully
                      * it does not come in prior to setting this up.
-                     *
-                     * TODO:
-                     * Ideally this buffer would be prepared prior to receiving the ZLP,
-                     * but it doesn't appear that this is currently possible to do
-                     * with lib_xud. This is under investigation.
                      */
                     prepare_setup(true);
                     rtos_printf("xfer ZLP on 00 complete\n");
@@ -205,13 +210,14 @@ static void dcd_xcore_int_handler(rtos_usb_t *ctx,
         break;
     case rtos_usb_sof_packet:
         if (tud_xcore_sof_cb) {
-            if (tud_xcore_sof_cb(0)) {
+            if (tud_xcore_sof_cb(0, cur_time)) {
                 dcd_event_bus_signal(0, DCD_EVENT_SOF, true);
             }
         }
         break;
     }
 }
+
 
 /*------------------------------------------------------------------*/
 /* Device API
@@ -493,26 +499,6 @@ bool dcd_edpt_xfer(uint8_t rhport,
 
     xassert(buffer != NULL);
 
-    /*
-     * If this is requesting the transfer of a ZLP status, then ensure that
-     * a buffer is ready for the next setup packet, as it may be transferred
-     * immediately following completion of this transfer.
-     */
-    if (tu_edpt_number(ep_addr) == 0 && total_bytes == 0 && tu_edpt_dir(ep_addr) != setup_packet.req.bmRequestType_bit.direction) {
-        if (ep_addr == 0x80) {
-            /*
-             * TODO: Ideally this would be prepared regardless of
-             * the data phase direction. But it doesn't appear to be
-             * possible to prepare lib_xud with a buffer for the next
-             * setup packet prior to preparing it for receipt of a ZLP
-             * status from the host.
-             * See related TODO in dcd_xcore_int_handler(). This is
-             * currently under investigation.
-             */
-            prepare_setup(false);
-        }
-    }
-
     res = rtos_usb_endpoint_transfer_start(&usb_ctx, ep_addr, buffer, total_bytes, is_setup);
     if (res == XUD_RES_OKAY) {
         return true;
@@ -555,4 +541,20 @@ void dcd_edpt_clear_stall (uint8_t rhport, uint8_t ep_addr)
 
     rtos_printf("STALL EP %02x: Clear\n", ep_addr);
     rtos_usb_endpoint_stall_clear(&usb_ctx, ep_addr);
+}
+
+void dcd_sof_enable(uint8_t rhport, bool en)
+{
+  (void) rhport;
+  (void) en;
+}
+
+bool dcd_check_test_mode_support(test_mode_t test_selector)
+{
+    return true;
+}
+
+void dcd_enter_test_mode(uint8_t rhport, test_mode_t test_selector)
+{
+    rtos_usb_enter_test_mode(&usb_ctx, ((unsigned)test_selector) << 8);
 }

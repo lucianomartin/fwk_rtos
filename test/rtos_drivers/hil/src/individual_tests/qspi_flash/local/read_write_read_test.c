@@ -1,4 +1,4 @@
-// Copyright 2021-2022 XMOS LIMITED.
+// Copyright 2021-2023 XMOS LIMITED.
 // This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 /* System headers */
@@ -104,7 +104,6 @@ static int main_test(qspi_flash_test_ctx_t *ctx)
             {
                 return -1;
             }
-
             if (read_write_read(ctx->qspi_flash_ctx, addr, 131072) == -1)
             {
                 return -1;

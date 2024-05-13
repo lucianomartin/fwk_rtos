@@ -1,4 +1,4 @@
-// Copyright 2021-2022 XMOS LIMITED.
+// Copyright 2021-2023 XMOS LIMITED.
 // This Software is subject to the terms of the XMOS Public Licence: Version 1.
 
 /* System headers */
@@ -69,17 +69,6 @@ void vApplicationDaemonTaskStartup(void *arg)
         test_printf("SKIP QSPI_FLASH_FAST_READ");
     }
 
-    if (RUN_UART_TESTS) {
-        if (uart_device_tests(rtos_uart_tx_ctx, rtos_uart_rx_ctx, other_tile_c) != 0)
-        {
-            test_printf("FAIL UART");
-        } else {
-            test_printf("PASS UART");
-        }
-    } else {
-        test_printf("SKIP UART");
-    }
-
     if (RUN_SPI_TESTS) {
         if (spi_device_tests(spi_master_ctx, test_spi_device_ctx, spi_slave_ctx, other_tile_c) != 0)
         {
@@ -89,6 +78,17 @@ void vApplicationDaemonTaskStartup(void *arg)
         }
     } else {
         test_printf("SKIP SPI");
+    }
+
+    if (RUN_UART_TESTS) {
+        if (uart_device_tests(rtos_uart_tx_ctx, rtos_uart_rx_ctx, other_tile_c) != 0)
+        {
+            test_printf("FAIL UART");
+        } else {
+            test_printf("PASS UART");
+        }
+    } else {
+        test_printf("SKIP UART");
     }
 
     _Exit(0);
