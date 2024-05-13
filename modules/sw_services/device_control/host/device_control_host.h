@@ -48,38 +48,6 @@ control_ret_t control_init_xscope(const char *host_str, const char *port_str);
 control_ret_t control_cleanup_xscope(void);
 #endif
 
-#if USE_SPI  || __DOXYGEN__
-#if RPI
-#include "bcm2835.h"
-/** Initialize the SPI host (master) interface for the Raspberry Pi
- *
- *  \param spi_mode             Mode that the SPI will run in
- *  \param clock_divider        The amount to divide the Raspberry Pi's clock by, e.g.
- *                              BCM2835_SPI_CLOCK_DIVIDER_1024 gives a clock of ~122kHz
- *                              on the RPI 2.
- *  \param delay_for_read       Delay between send and recieve for read command
- *
- *  \returns                    Whether the initialization was successful or not
- */
-control_ret_t control_init_spi_pi(spi_mode_t spi_mode, bcm2835SPIClockDivider clock_divider, unsigned delay_for_read);
-#else
-/** Initialize the SPI host (master) interface
- *
- *  \param spi_mode             Mode that the SPI will run in
- *  \param spi_bitrate          Bitrate for SPI to run at
- *  \param delay_for_read       Delay between send and recieve for read command
- *
- *  \returns                    Whether the initialization was successful or not
- */
-control_ret_t control_init_spi(spi_mode_t spi_mode, int spi_bitrate, unsigned delay_for_read);
-#endif // RPI
-/** Shutdown the SPI host (master) interface connection
- *
- *  \returns           Whether the shutdown was successful or not
- */
-control_ret_t control_cleanup_spi(void);
-#endif
-
 #if USE_I2C || __DOXYGEN__
 /** Initialize the I2C host (master) interface
  *
