@@ -101,7 +101,7 @@ control_write_command(control_resid_t resid, control_cmd_t cmd,
   {
     printf("I2C write() only transferred %d out of %d bytes\n",numbytes, len);
   }
-  numbytes = read(fd, command_status, 1);
+  numbytes = read(fd, command_status, CONTROL_GET_LAST_COMMAND_STATUS);
   if(numbytes < 0)
   {
     PRINT_ERROR("I2C read() returned error %d\n",numbytes);

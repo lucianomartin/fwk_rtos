@@ -148,8 +148,8 @@ static control_ret_t special_read_command(device_control_t *ctx,
     case CONTROL_GET_LAST_COMMAND_STATUS:
         rtos_printf("read last command status %d\n", ctx->last_status);
         if (payload_len != sizeof(control_status_t)) {
-            rtos_printf("wrong payload size %d for read version command, need %d\n",
-                    payload_len, sizeof(control_version_t));
+            rtos_printf("wrong payload size %d for read last command status command, need %d\n",
+                    payload_len, sizeof(control_status_t));
 
             return CONTROL_BAD_COMMAND;
         } else {
@@ -340,7 +340,7 @@ control_ret_t device_control_payload_transfer(device_control_t *ctx,
         }
 
     }
-    else 
+    else
     {
         ctx->last_status = CONTROL_BAD_RESOURCE;
         if(direction == CONTROL_DEVICE_TO_HOST) //read request from host

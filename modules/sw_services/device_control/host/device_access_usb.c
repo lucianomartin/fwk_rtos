@@ -126,7 +126,7 @@ control_write_command(control_resid_t resid, control_cmd_t cmd,
   // Read back write command status
   uint8_t status;
   control_usb_fill_header(&windex, &wvalue, &wlength,
-    resid, CONTROL_CMD_SET_WRITE(cmd), 1);
+    resid, CONTROL_CMD_SET_WRITE(cmd), CONTROL_GET_LAST_COMMAND_STATUS));
 
   ret = libusb_control_transfer(devh,
     LIBUSB_ENDPOINT_IN | LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE,
