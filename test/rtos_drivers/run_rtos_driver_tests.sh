@@ -20,18 +20,18 @@ if [ -z "$1" ] || [ "$1" == "all" ]
 then
     # row format is: "path make_target BOARD"
     applications=(
-        #"test/rtos_drivers/clock_control test_rtos_driver_clock_control_test XCORE-AI-EXPLORER"
-        #"test/rtos_drivers/hil test_rtos_driver_hil XCORE-AI-EXPLORER"
-        #"test/rtos_drivers/hil_add test_rtos_driver_hil_add XCORE-AI-EXPLORER"
+        "test/rtos_drivers/clock_control test_rtos_driver_clock_control_test XCORE-AI-EXPLORER"
+        "test/rtos_drivers/hil test_rtos_driver_hil XCORE-AI-EXPLORER"
+        "test/rtos_drivers/hil_add test_rtos_driver_hil_add XCORE-AI-EXPLORER"
         "test/rtos_drivers/usb test_rtos_driver_usb XCORE-AI-EXPLORER"
         "test/rtos_drivers/wifi test_rtos_driver_wifi XCORE-AI-EXPLORER"
     )
 elif [ "$1" == "smoke" ]
 then
     applications=(
-        #"test/rtos_drivers/clock_control test_rtos_driver_clock_control_test XCORE-AI-EXPLORER"
-        #"test/rtos_drivers/hil test_rtos_driver_hil XCORE-AI-EXPLORER"
-        #"test/rtos_drivers/hil_add test_rtos_driver_hil_add XCORE-AI-EXPLORER"
+        "test/rtos_drivers/clock_control test_rtos_driver_clock_control_test XCORE-AI-EXPLORER"
+        "test/rtos_drivers/hil test_rtos_driver_hil XCORE-AI-EXPLORER"
+        "test/rtos_drivers/hil_add test_rtos_driver_hil_add XCORE-AI-EXPLORER"
         "test/rtos_drivers/usb test_rtos_driver_usb XCORE-AI-EXPLORER"
         "test/rtos_drivers/wifi test_rtos_driver_wifi XCORE-AI-EXPLORER"
     )
