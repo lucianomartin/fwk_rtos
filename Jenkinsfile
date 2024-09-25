@@ -150,9 +150,9 @@ pipeline {
                                     withVenv {
                                         script {
                                             withXTAG(["$RTOS_TEST_RIG_TARGET"]) { adapterIDs ->
-                                                //sh "test/rtos_drivers/hil/check_drivers_hil.sh " + adapterIDs[0]
+                                                sh "test/rtos_drivers/hil/check_drivers_hil.sh " + adapterIDs[0]
                                             }
-                                            //sh "pytest test/rtos_drivers/hil"
+                                            sh "pytest test/rtos_drivers/hil"
                                         }
                                     }
                                 }
