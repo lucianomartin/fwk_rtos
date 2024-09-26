@@ -143,6 +143,20 @@ pipeline {
                         //        }
                         //    }
                         //}
+                        stage('Run RTOS Drivers USB test') {
+                            steps {
+                                withTools(params.TOOLS_VERSION) {
+                                    withVenv {
+                                        script {
+                                            withXTAG(["$RTOS_TEST_RIG_TARGET"]) { adapterIDs ->
+                                                sh "bash -l test/rtos_drivers/usb/check_usb.sh " + adapterIDs[0]
+                                            }
+                                            sh "pytest test/rtos_drivers/usb"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         // TODO: Disabled till http://bugzilla.xmos.local/show_bug.cgi?id=18895 is fixed.
                         // This problem occurred in the USB tests if the HIL tests were run first.
                         // Tools 15.3.1 should include the fix.
@@ -169,20 +183,6 @@ pipeline {
                                                 sh "test/rtos_drivers/hil_add/check_drivers_hil_add.sh " + adapterIDs[0]
                                             }
                                             sh "pytest test/rtos_drivers/hil_add"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        stage('Run RTOS Drivers USB test') {
-                            steps {
-                                withTools(params.TOOLS_VERSION) {
-                                    withVenv {
-                                        script {
-                                            withXTAG(["$RTOS_TEST_RIG_TARGET"]) { adapterIDs ->
-                                                sh "bash -l test/rtos_drivers/usb/check_usb.sh " + adapterIDs[0]
-                                            }
-                                            sh "pytest test/rtos_drivers/usb"
                                         }
                                     }
                                 }
