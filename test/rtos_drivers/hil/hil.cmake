@@ -1,13 +1,13 @@
 #**********************
 # Individual tests
 #**********************
-set(INTERTILE_TEST  0)
-set(I2C_TEST        0)
-set(GPIO_TEST       0)
-set(SWMEM_TEST      0)
-set(QSPI_FLASH_TEST 0)
-set(I2S_TEST        0)
-set(MIC_ARRAY_TEST  0)
+set(INTERTILE_TEST  1)
+set(I2C_TEST        1)
+set(GPIO_TEST       1)
+set(SWMEM_TEST      1)
+set(QSPI_FLASH_TEST 1)
+set(I2S_TEST        1)
+set(MIC_ARRAY_TEST  1)
 
 #**********************
 # Gather Sources
