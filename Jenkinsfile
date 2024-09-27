@@ -192,7 +192,7 @@ pipeline {
                                 }
                             }
                         }
-
+                }
                     post {
                         cleanup {
                             // cleanWs removes all output and artifacts of the Jenkins pipeline
