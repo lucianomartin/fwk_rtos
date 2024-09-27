@@ -162,6 +162,22 @@ pipeline {
                         //    }
                         //}
 
+                        stage('Run RTOS Drivers USB test') {
+                            steps {
+                                withTools(params.TOOLS_VERSION) {
+                                    withVenv {
+                                        script {
+                                            withXTAG(["$RTOS_TEST_RIG_TARGET"]) { adapterIDs ->
+                                                sh "bash -l test/rtos_drivers/usb/check_usb.sh " + adapterIDs[0]
+                                            }
+                                            sh "pytest test/rtos_drivers/usb"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        }
+
                         stage('Run RTOS Drivers HIL_Add test') {
                             steps {
                                 withTools(params.TOOLS_VERSION) {
@@ -177,21 +193,6 @@ pipeline {
                             }
                         }
 
-                        stage('Run RTOS Drivers USB test') {
-                            steps {
-                                withTools(params.TOOLS_VERSION) {
-                                    withVenv {
-                                        script {
-                                            withXTAG(["$RTOS_TEST_RIG_TARGET"]) { adapterIDs ->
-                                                sh "bash -l test/rtos_drivers/usb/check_usb.sh " + adapterIDs[0]
-                                            }
-                                            sh "pytest test/rtos_drivers/usb"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                     post {
                         cleanup {
                             // cleanWs removes all output and artifacts of the Jenkins pipeline
