@@ -176,7 +176,6 @@ pipeline {
                                 }
                             }
                         }
-                        }
 
                         stage('Run RTOS Drivers HIL_Add test') {
                             steps {
@@ -192,7 +191,7 @@ pipeline {
                                 }
                             }
                         }
-                }
+                    }
                     post {
                         cleanup {
                             // cleanWs removes all output and artifacts of the Jenkins pipeline
